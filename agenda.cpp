@@ -79,19 +79,27 @@ vector<Reserva> Agenda::ultimas_reservas(int k) const
 int Agenda::reservas_del_dia(timestamp t) const
 {
     // Implementación trivial O(n): recorre toda la lista
-    timestamp inicio_dia = principio_del_dia(t);
-    timestamp fin_dia = fin_del_dia(t);
+    // timestamp inicio_dia = principio_del_dia(t);
+    // timestamp fin_dia = fin_del_dia(t);
 
-    int cantidad = 0;
-    for (const Reserva &r : _reservas)
+    // int cantidad = 0;
+    // for (const Reserva &r : _reservas)
+    // {
+    //     if (r.fecha_hora >= inicio_dia && r.fecha_hora < fin_dia)
+    //     {
+    //         cantidad++;
+    //     }
+    // }
+
+    // aprovecho el hecho de que ya tenemos un map con las reservas por dia, y simplemente devuelvo el valor asociado al dia de la fecha
+    if (_reservas_por_dia.count(principio_del_dia(t)) == 0)
     {
-        if (r.fecha_hora >= inicio_dia && r.fecha_hora < fin_dia)
-        {
-            cantidad++;
-        }
+        return 0;
     }
-
-    return cantidad;
+    else
+    {
+        return _reservas_por_dia.at(principio_del_dia(t));
+    }
 }
 
 vector<string> Agenda::clientes_frecuentes(int k) const
