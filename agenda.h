@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <map>
 #include "lib.h"
 
 using namespace std;
@@ -82,6 +83,15 @@ class Agenda {
 
     /** Listado de todas las reservas realizadas */
     list<Reserva> _reservas;
+
+    // un map por cada dia, cantidad de reservas
+    map<timestamp, int> _reservas_por_dia;
+
+    // un map con el nombre del cliente y la cantidad de reservas que tiene, para luego poder tener los clientes mas usuales
+    map<string, int> _reservas_por_cliente;
+
+    // una lista ordenada de mayor a menor segun los clientes mas usuales
+    list<pair<string,int>> _clientes_ordenados;
 };
 
 #endif
