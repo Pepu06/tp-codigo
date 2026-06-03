@@ -53,27 +53,54 @@ int Agenda::cantidad_reservas() const
 vector<Reserva> Agenda::ultimas_reservas(int k) const
 {
     // Implementación trivial O(n): recorre toda la lista
-    vector<Reserva> resultado;
-    const list<Reserva> &todas = _reservas;
+    // vector<Reserva> resultado;
+    // const list<Reserva> &todas = _reservas;
 
-    // Tomamos las últimas k (o todas si hay menos de k)
-    int total = todas.size();
-    int inicio = max(0, total - k);
-    int i = 0;
+    // // Tomamos las últimas k (o todas si hay menos de k)
+    // int total = todas.size();
+    // int inicio = max(0, total - k);
+    // int i = 0;
 
-    for (const Reserva &r : todas)
+    // for (const Reserva &r : todas)
+    // {
+    //     if (i >= inicio)
+    //     {
+    //         resultado.push_back(r);
+    //     }
+    //     i++;
+    // }
+
+    // // Las invertimos para que queden de más reciente a más antigua
+    // reverse(resultado.begin(), resultado.end());
+
+    // inicio un contador para luego verificar cuando llego a k
+    int contador = 0;
+    vector<Reserva> res;
+
+    // me fijo si no existen reservas
+    if (_reservas.empty())
     {
-        if (i >= inicio)
-        {
-            resultado.push_back(r);
-        }
-        i++;
+        return res;
     }
 
-    // Las invertimos para que queden de más reciente a más antigua
-    reverse(resultado.begin(), resultado.end());
+    // voy reserva por reserva, empezando desde el final, hasta que mi contador sea igual a k, cuando llega ese momento devuelvo res
+    list<Reserva>::const_iterator reserva = _reservas.end();
+    reserva--;
 
-    return resultado;
+    while (contador < k)
+    {
+        res.push_back(*reserva);
+        contador++;
+
+        // si llego al principio de la lista, corto el ciclo
+        if (reserva == _reservas.begin())
+        {
+            break;
+        }
+        reserva--;
+    }
+
+    return res;
 }
 
 int Agenda::reservas_del_dia(timestamp t) const
