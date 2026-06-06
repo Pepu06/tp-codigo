@@ -67,7 +67,7 @@ vector<Reserva> Agenda::ultimas_reservas(int k) const
     }
 
     // voy reserva por reserva, empezando desde el final, hasta que mi contador sea igual a k, cuando llega ese momento devuelvo res
-    list<Reserva>::const_iterator reserva = _reservas.end();
+    auto reserva = _reservas.end();
     reserva--;
 
     while (contador < k)
@@ -105,7 +105,7 @@ vector<string> Agenda::clientes_frecuentes(int k) const
     vector<string> resultado;
     
     // creo un iterador para ir avanzando entre los _clientes_ordenados dentro del while
-    list<pair<string,int>>::const_iterator cliente = _clientes_ordenados.begin();
+    auto cliente = _clientes_ordenados.begin();
 
     int contador = 0;
 
