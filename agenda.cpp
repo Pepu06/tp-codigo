@@ -1,7 +1,9 @@
 #include "agenda.h"
 #include <algorithm>
 
-Agenda::Agenda() {}
+Agenda::Agenda() {
+    _cantidad_reservas = 0;
+}
 
 const list<Reserva> &Agenda::reservas() const
 {
@@ -42,37 +44,18 @@ void Agenda::registrar_reserva(Reserva r)
     {
         _clientes_ordenados.push_back({r.cliente, 1});
     }
+
+    _cantidad_reservas++;
 }
 
 int Agenda::cantidad_reservas() const
 {
-    // Implementación trivial O(n): recorre toda la lista
-    return _reservas.size();
+    // devuelvo la cantidad de reservas guardado en el private
+    return _cantidad_reservas;
 }
 
 vector<Reserva> Agenda::ultimas_reservas(int k) const
 {
-    // Implementación trivial O(n): recorre toda la lista
-    // vector<Reserva> resultado;
-    // const list<Reserva> &todas = _reservas;
-
-    // // Tomamos las últimas k (o todas si hay menos de k)
-    // int total = todas.size();
-    // int inicio = max(0, total - k);
-    // int i = 0;
-
-    // for (const Reserva &r : todas)
-    // {
-    //     if (i >= inicio)
-    //     {
-    //         resultado.push_back(r);
-    //     }
-    //     i++;
-    // }
-
-    // // Las invertimos para que queden de más reciente a más antigua
-    // reverse(resultado.begin(), resultado.end());
-
     // inicio un contador para luego verificar cuando llego a k
     int contador = 0;
     vector<Reserva> res;
@@ -105,19 +88,6 @@ vector<Reserva> Agenda::ultimas_reservas(int k) const
 
 int Agenda::reservas_del_dia(timestamp t) const
 {
-    // Implementación trivial O(n): recorre toda la lista
-    // timestamp inicio_dia = principio_del_dia(t);
-    // timestamp fin_dia = fin_del_dia(t);
-
-    // int cantidad = 0;
-    // for (const Reserva &r : _reservas)
-    // {
-    //     if (r.fecha_hora >= inicio_dia && r.fecha_hora < fin_dia)
-    //     {
-    //         cantidad++;
-    //     }
-    // }
-
     // aprovecho el hecho de que ya tenemos un map con las reservas por dia, y simplemente devuelvo el valor asociado al dia de la fecha
     if (_reservas_por_dia.count(principio_del_dia(t)) == 0)
     {
@@ -131,37 +101,29 @@ int Agenda::reservas_del_dia(timestamp t) const
 
 vector<string> Agenda::clientes_frecuentes(int k) const
 {
-    // Implementación trivial O(n*c): recorre todas las reservas y ordena
-    // Primero contamos las reservas por cliente
-    vector<pair<string, int>> conteo;
+    // creo un vector para guardar los clientes frecuentes
+    vector<string> resultado;
+    
+    // creo un iterador para ir avanzando entre los _clientes_ordenados dentro del while
+    list<pair<string,int>>::const_iterator cliente = _clientes_ordenados.begin();
 
-    for (const Reserva &r : _reservas)
-    {
-        bool encontrado = false;
-        for (auto &p : conteo)
-        {
-            if (p.first == r.cliente)
-            {
-                p.second++;
-                encontrado = true;
-                break;
-            }
-        }
-        if (!encontrado)
-        {
-            conteo.push_back({r.cliente, 1});
-        }
+    int contador = 0;
+
+    // chequeo si _clientes_ordenados esta vacio y devuelvo un vector vacio en ese caso
+    if (_clientes_ordenados.empty()){
+        return resultado;
     }
 
-    // Ordenamos por cantidad de reservas (descendente)
-    sort(conteo.begin(), conteo.end(), [](const pair<string, int> &a, const pair<string, int> &b)
-         { return a.second > b.second; });
-
-    // Tomamos los primeros k
-    vector<string> resultado;
-    for (int i = 0; i < k && i < (int)conteo.size(); i++)
+    // mientras que el contador sea menor a k (cuando son iguales corta), agrego los nombres de los clientes al vector de resultado, si el contador aun no llego a k pero no hay mas clientes en _clientes_ordenados, devuelvo lo que hay hasta ese momento
+    while (contador < k)
     {
-        resultado.push_back(conteo[i].first);
+        resultado.push_back(cliente->first);
+        contador++;
+        cliente++;
+
+        if (cliente == _clientes_ordenados.end()){
+            return resultado;
+        }
     }
 
     return resultado;

@@ -92,6 +92,9 @@ class Agenda {
 
     // una lista ordenada de mayor a menor segun los clientes mas usuales
     list<pair<string,int>> _clientes_ordenados;
+
+    // guardo manualmente la cantidad de reservas
+    int _cantidad_reservas;
 };
 
 #endif
