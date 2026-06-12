@@ -69,11 +69,10 @@ class Agenda {
   private:
     // =====================================================================
     // INVARIANTE DE REPRESENTACIÓN:
-    //
-    // TODO: Escribir acá el invariante de representación en castellano!
-    //
-    // Recordar que también hay que presentarlo escrito en lenguaje formal.
-    //
+    // 1. Cada clave representa el principio de un dia, con valor mayor o igual a 1, representando la cantidad de veces que aparece el dia en _reservas. La suma de todos los valores tiene que ser igual a la longitud de _reservas. Todas las claves aparecen en _reservas.
+    // 2. 
+    // 3. 
+    // 4. _cantidad_reservas es igul a la cantidad de elementos de la lista _reservas
     // =====================================================================
 
     // =====================================================================
