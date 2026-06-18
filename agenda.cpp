@@ -115,13 +115,13 @@ vector<Reserva> Agenda::ultimas_reservas(int k) const
 int Agenda::reservas_del_dia(timestamp t) const
 {
     // aprovecho el hecho de que ya tenemos un map con las reservas por dia, y simplemente devuelvo el valor asociado al dia de la fecha
-    if (_reservas_por_dia.count(principio_del_dia(t)) == 0) // O(log(D)) 
+    if (_reservas_por_dia.count(principio_del_dia(t)) == 0) // O(log(D)) visto en slides teoricas 
     {
         return 0; // O(1)
     }
     else
     {
-        return _reservas_por_dia.at(principio_del_dia(t)); // O(log(D)) 
+        return _reservas_por_dia.at(principio_del_dia(t)); // O(log(D)) visto en slides teoricas
     }
 
     // Son log(D) en el peor caso porque el map tiene logarítmica de complejidad para buscar una clave.
