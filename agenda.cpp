@@ -58,7 +58,7 @@ void Agenda::registrar_reserva(Reserva r)
     // Max de los  O(1) = max{O(1),O(1),O(1),O(1)} = O(1) + O(log(D)) + O(log(C)) + O(C)
     // Max {O(1) , O(log(D))} = O(log(D)) + O(log(C)) + O(C)
     // Max {O(log(C)), O(C)} = O(C)
-    // Complejidad total: O(log(D) + C) en el peor caso.
+    // Complejidad total: Max{log(D)+ O(C)} = O(log(D) + C) en el peor caso.
     
 }
 
@@ -166,7 +166,7 @@ vector<string> Agenda::clientes_frecuentes(int k) const
     return resultado; // O(1)
 
     // Complejidad total de clientes_frecuentes: O(1) + O(1) + O(1) + O(k) + O(1)
-    // Sumo todos los O(1) = O(1) + O(k)
+    //  Max{O(1),O(1),O(1),O(1)} = O(1) = O(1) + O(k)
     // Complejidad total: max{O(1), O(k)} = O(k)
 
 }
