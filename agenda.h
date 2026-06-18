@@ -68,27 +68,17 @@ class Agenda {
 
   private:
     // =====================================================================
-// INVARIANTE DE REPRESENTACIÓN:
-//
-// _cantidad_reservas = _reservas.size().
-//
-// Para cada día d en _reservas_por_dia:
-//    d corresponde al principio de un día.
-//    _reservas_por_dia[d] es igual a la cantidad de reservas
-//      de _reservas cuyo día es d.
-//
-// Para cada cliente c en _reservas_por_cliente:
-//     _reservas_por_cliente[c] es igual a la cantidad de reservas
-//      de _reservas realizadas por c.
-//
-// _clientes_ordenados contiene exactamente los mismos clientes que
-// _reservas_por_cliente, sin repetidos.
-//
-// Para todo cliente c presente en _clientes_ordenados, la cantidad
-// asociada coincide con _reservas_por_cliente[c].
-//
-// _clientes_ordenados está ordenada de forma no creciente según la
-// cantidad de reservas.
+    // INVARIANTE DE REPRESENTACIÓN:
+    //
+    // _cantidad_reservas = _reservas.size().
+    //
+    // Para cada día d en _reservas_por_dia:
+    //    d corresponde al principio de un día.
+    //    _reservas_por_dia[d] es igual a la cantidad de reservas de _reservas cuyo día es d.
+    //
+    // Para cada cliente c en _reservas_por_cliente: _reservas_por_cliente[c] es igual a la cantidad de reservas de _reservas realizadas por c.
+    //
+    // _clientes_ordenados contiene exactamente los mismos clientes que _reservas_por_cliente, sin repetidos. Para todo cliente c presente en _clientes_ordenados, la cantidad asociada coincide con _reservas_por_cliente[c]. _clientes_ordenados está ordenada de forma decrenciente según la cantidad de reservas.
     // =====================================================================
 
     // =====================================================================
